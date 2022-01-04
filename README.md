@@ -540,3 +540,42 @@ DROP CAST (source_type AS target_type) [ CASCADE | RESTRICT ]
 ```
 #### DROP CONVERSION
 Remove a conversion.
+```
+DROP CONVERSION name [ CASCADE | RESTRICT ]
+```
+#### DROP DATABASE
+Remove a database.
+```
+DROP DATABASE name
+```
+#### DROP DOMAIN
+Remove a domain.
+```
+DROP DOMAIN name [, ...] [ CASCADE | RESTRICT ]
+```
+#### DROP FUNCTION
+Remove a function.
+```
+DROP FUNCTION name ( [ type [, ...] ] ) [ CASCADE | RESTRICT ]
+```
+#### DROP GROUP
+Remove a user group.
+```
+DROP GROUP name
+```
+#### DROP INDEX
+Remove an index.
+```
+DROP INDEX name [, ...] [ CASCADE | RESTRICT ]
+```
+#### DROP LANGUAGE
+Remove a procedural language.
+```
+DROP [ PROCEDURAL ] LANGUAGE name [ CASCADE | RESTRICT ]
+```
+#### DROP OPERATOR
+Remove an operator.
+```
+DROP OPERATOR name ( { left_type | NONE }, { right_type | NONE } )
+[ CASCADE | RESTRICT ]
+```
