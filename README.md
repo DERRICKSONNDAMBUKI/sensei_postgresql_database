@@ -243,3 +243,300 @@ COMMENT ON {
 }
 IS 'text'
 ```
+#### COMMIT
+Commit the current transaction.
+```
+COMMIT [ WORK | TRANSACTION ]
+```
+#### COPY
+Copy data between a file and a table.
+```
+COPY table_name [ ( column [, ...] ) ]
+FROM { 'filename' | STDIN }
+[ WITH ]
+[ BINARY ]
+[ OIDS ]
+[ DELIMITER [ AS ] 'delimiter' ]
+[ NULL [ AS ] 'null string' ]
+[ CSV [ QUOTE [ AS ] 'quote' ]
+[ ESCAPE [ AS ] 'escape' ]
+[ FORCE NOT NULL column [, ...] ]
+COPY table_name [ ( column [, ...] ) ]
+TO { 'filename' | STDOUT }
+[ [ WITH ]
+[ BINARY ]
+[ OIDS ]
+[ DELIMITER [ AS ] 'delimiter' ]
+[ NULL [ AS ] 'null string' ]
+[ CSV [ QUOTE [ AS ] 'quote' ]
+[ ESCAPE [ AS ] 'escape' ]
+[ FORCE QUOTE column [, ...] ]
+```
+#### CREATE AGGREGATE
+Define a new aggregate function.
+```
+CREATE AGGREGATE name (
+    BASETYPE = input_data_type,
+    SFUNC = sfunc,
+    STYPE = state_data_type
+    [, FINALFUNC = ffunc ]
+    [, INITCOND = initial_condition ]
+)
+```
+#### CREATE CAST
+Define a new cast.
+```
+CREATE CAST (source_type AS target_type)
+WITH FUNCTION func_name (arg_types)
+[ AS ASSIGNMENT | AS IMPLICIT ]
+CREATE CAST (source_type AS target_type)
+WITHOUT FUNCTION
+[ AS ASSIGNMENT | AS IMPLICIT ]
+```
+#### CREATE CONSTRAINT TRIGGER
+Define a new constraint trigger.
+```
+CREATE CONSTRAINT TRIGGER name
+AFTER events ON
+table_name constraint attributes
+FOR EACH ROW EXECUTE PROCEDURE func_name ( args )
+```
+#### CREATE CONVERSION
+Define a new conversion.
+```
+CREATE [DEFAULT] CONVERSION name
+FOR source_encoding TO dest_encoding FROM func_name
+```
+#### CREATE DATABASE
+Create a new database.
+```
+CREATE DATABASE name
+[ [ WITH ] [ OWNER [=] db_owner ]
+    [ TEMPLATE [=] template ]
+    [ ENCODING [=] encoding ]
+    [ TABLESPACE [=] tablespace ]
+]
+```
+#### CREATE DOMAIN
+Define a new domain.
+```
+CREATE DOMAIN name [AS] data_type
+[ DEFAULT expression ]
+[ constraint [ ... ] ]
+```
+Where constraint is −
+```
+[ CONSTRAINT constraint_name ]
+{ NOT NULL | NULL | CHECK (expression) }
+```
+#### CREATE FUNCTION
+Define a new function.
+```
+CREATE [ OR REPLACE ] FUNCTION name ( [ [ arg_name ] arg_type [, ...] ] )
+RETURNS ret_type
+{ LANGUAGE lang_name
+    | IMMUTABLE | STABLE | VOLATILE
+    | CALLED ON NULL INPUT | RETURNS NULL ON NULL INPUT | STRICT
+    | [ EXTERNAL ] SECURITY INVOKER | [ EXTERNAL ] SECURITY DEFINER
+    | AS 'definition'
+    | AS 'obj_file', 'link_symbol'
+} ...
+
+[ WITH ( attribute [, ...] ) ]
+```
+#### CREATE GROUP
+Define a new user group.
+```
+CREATE GROUP name [ [ WITH ] option [ ... ] ]
+Where option can be:
+SYSID gid
+| USER username [, ...]
+```
+#### CREATE INDEX
+Define a new index.
+```
+CREATE [ UNIQUE ] INDEX name ON table [ USING method ]
+( { column | ( expression ) } [ opclass ] [, ...] )
+[ TABLESPACE tablespace ]
+[ WHERE predicate ]
+```
+#### CREATE LANGUAGE
+Define a new procedural language.
+```
+CREATE [ TRUSTED ] [ PROCEDURAL ] LANGUAGE name
+HANDLER call_handler [ VALIDATOR val_function ]
+```
+#### CREATE OPERATOR
+Define a new operator.
+```
+CREATE OPERATOR name (
+    PROCEDURE = func_name
+    [, LEFTARG = left_type ] [, RIGHTARG = right_type ]
+    [, COMMUTATOR = com_op ] [, NEGATOR = neg_op ]
+    [, RESTRICT = res_proc ] [, JOIN = join_proc ]
+    [, HASHES ] [, MERGES ]
+    [, SORT1 = left_sort_op ] [, SORT2 = right_sort_op ]
+    [, LTCMP = less_than_op ] [, GTCMP = greater_than_op ]
+)
+```
+#### CREATE OPERATOR CLASS
+Define a new operator class.
+```
+CREATE OPERATOR CLASS name [ DEFAULT ] FOR TYPE data_type
+USING index_method AS
+{ OPERATOR strategy_number operator_name [ ( op_type, op_type ) ] [ RECHECK
+    | FUNCTION support_number func_name ( argument_type [, ...] )
+    | STORAGE storage_type
+} [, ... ]
+```
+#### CREATE RULE
+Define a new rewrite rule.
+```
+CREATE [ OR REPLACE ] RULE name AS ON event
+TO table [ WHERE condition ]
+DO [ ALSO | INSTEAD ] { NOTHING | command | ( command ; command ... ) }
+```
+#### CREATE SCHEMA
+Define a new schema.
+```
+CREATE SCHEMA schema_name
+[ AUTHORIZATION username ] [ schema_element [ ... ] ]
+CREATE SCHEMA AUTHORIZATION username
+[ schema_element [ ... ] ]
+```
+#### CREATE SEQUENCE
+Define a new sequence generator.
+```
+CREATE [ TEMPORARY | TEMP ] SEQUENCE name
+[ INCREMENT [ BY ] increment ]
+[ MINVALUE minvalue | NO MINVALUE ]
+[ MAXVALUE maxvalue | NO MAXVALUE ]
+[ START [ WITH ] start ] [ CACHE cache ] [ [ NO ] CYCLE ]
+```
+#### CREATE TABLE
+Define a new table.
+```
+CREATE [ [ GLOBAL | LOCAL ] {
+    TEMPORARY | TEMP } ] TABLE table_name ( {
+        column_name data_type [ DEFAULT default_expr ] [ column_constraint [ ...
+        | table_constraint
+        | LIKE parent_table [ { INCLUDING | EXCLUDING } DEFAULTS ]
+    } [, ... ]
+
+)
+[ INHERITS ( parent_table [, ... ] ) ]
+[ WITH OIDS | WITHOUT OIDS ]
+[ ON COMMIT { PRESERVE ROWS | DELETE ROWS | DROP } ]
+[ TABLESPACE tablespace ]
+```
+Where column_constraint is −
+```
+[ CONSTRAINT constraint_name ] {
+    NOT NULL |
+    NULL |
+    UNIQUE [ USING INDEX TABLESPACE tablespace ] |
+    PRIMARY KEY [ USING INDEX TABLESPACE tablespace ] |
+    CHECK (expression) |
+    REFERENCES ref_table [ ( ref_column ) ]
+    [ MATCH FULL | MATCH PARTIAL | MATCH SIMPLE ]
+    [ ON DELETE action ] [ ON UPDATE action ]
+}
+[ DEFERRABLE | NOT DEFERRABLE ] [ INITIALLY DEFERRED | INITIALLY IMMEDIATE ]
+```
+And table_constraint is −
+```
+[ CONSTRAINT constraint_name ]
+{ UNIQUE ( column_name [, ... ] ) [ USING INDEX TABLESPACE tablespace ] |
+PRIMARY KEY ( column_name [, ... ] ) [ USING INDEX TABLESPACE tablespace ] |
+CHECK ( expression ) |
+FOREIGN KEY ( column_name [, ... ] )
+REFERENCES ref_table [ ( ref_column [, ... ] ) ]
+[ MATCH FULL | MATCH PARTIAL | MATCH SIMPLE ]
+[ ON DELETE action ] [ ON UPDATE action ] }
+[ DEFERRABLE | NOT DEFERRABLE ] [ INITIALLY DEFERRED | INITIALLY IMMEDIATE ]
+```
+#### CREATE TABLE AS
+Define a new table from the results of a query.
+```
+CREATE [ [ GLOBAL | LOCAL ] { TEMPORARY | TEMP } ] TABLE table_name
+[ (column_name [, ...] ) ] [ [ WITH | WITHOUT ] OIDS ]
+AS query
+```
+#### CREATE TABLESPACE
+Define a new tablespace.
+```
+CREATE TABLESPACE tablespace_name [ OWNER username ] LOCATION 'directory'
+```
+#### CREATE TRIGGER
+Define a new trigger.
+```
+CREATE TRIGGER name { BEFORE | AFTER } { event [ OR ... ] }
+ON table [ FOR [ EACH ] { ROW | STATEMENT } ]
+EXECUTE PROCEDURE func_name ( arguments )
+```
+#### CREATE TYPE
+Define a new data type.
+```
+CREATE TYPE name AS
+( attribute_name data_type [, ... ] )
+CREATE TYPE name (
+INPUT = input_function,
+OUTPUT = output_function
+[, RECEIVE = receive_function ]
+[, SEND = send_function ]
+[, ANALYZE = analyze_function ]
+[, INTERNALLENGTH = { internal_length | VARIABLE } ]
+[, PASSEDBYVALUE ]
+[, ALIGNMENT = alignment ]
+[, STORAGE = storage ]
+[, DEFAULT = default ]
+[, ELEMENT = element ]
+[, DELIMITER = delimiter ]
+)
+```
+#### CREATE USER
+Define a new database user account.
+```
+CREATE USER name [ [ WITH ] option [ ... ] ]
+```
+Where option can be −
+```
+SYSID uid
+| [ ENCRYPTED | UNENCRYPTED ] PASSWORD 'password'
+| CREATEDB | NOCREATEDB
+| CREATEUSER | NOCREATEUSER
+| IN GROUP group_name [, ...]
+| VALID UNTIL 'abs_time'
+```
+#### CREATE VIEW
+Define a new view.
+```
+CREATE [ OR REPLACE ] VIEW name [ ( column_name [, ...] ) ] AS query
+DEALLOCATE
+Deallocate a prepared statement.
+DEALLOCATE [ PREPARE ] plan_name
+```
+#### DECLARE
+Define a cursor.
+```
+DECLARE name [ BINARY ] [ INSENSITIVE ] [ [ NO ] SCROLL ]
+CURSOR [ { WITH | WITHOUT } HOLD ] FOR query
+[ FOR { READ ONLY | UPDATE [ OF column [, ...] ] } ]
+```
+#### DELETE
+Delete rows of a table.
+```
+DELETE FROM [ ONLY ] table [ WHERE condition ]
+```
+#### DROP AGGREGATE
+Remove an aggregate function.
+```
+DROP AGGREGATE name ( type ) [ CASCADE | RESTRICT ]
+```
+#### DROP CAST
+Remove a cast.
+```
+DROP CAST (source_type AS target_type) [ CASCADE | RESTRICT ]
+```
+#### DROP CONVERSION
+Remove a conversion.
