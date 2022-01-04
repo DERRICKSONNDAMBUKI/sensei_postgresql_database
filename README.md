@@ -29,7 +29,7 @@ postgres-# \help <command_name>
 
 An SQL statement is comprised of tokens where each token can represent either a keyword, identifier, quoted identifier, constant, or special character symbol. The table given below uses a simple SELECT statement to illustrate a basic, but complete, SQL statement and its components.
 
-|             | SELECT | id, name | FROM | states |
-|:-----------:|:-------:|:-------------------:|:------------------:|
-| Token  Type | Keyword | Identifiers | Keyword | Identifier |
-| Description | Command | Id and name columns | Clause | Table name |
+|             | SELECT  |            id, name | FROM    | states     |
+|-------------|---------|---------------------|---------|------------|
+| Token  Type | Keyword | Identifiers         | Keyword | Identifier |
+| Description | Command | Id and name columns | Clause  | Table name |
