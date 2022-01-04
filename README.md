@@ -180,3 +180,66 @@ Where option can be −
 | CREATEUSER | NOCREATEUSER
 | VALID UNTIL 'abstime'
 ```
+#### ANALYZE
+Collect statistics about a database.
+```
+ANALYZE [ VERBOSE ] [ table [ (column [, ...] ) ] ]
+```
+#### BEGIN
+Start a transaction block.
+```
+BEGIN [ WORK | TRANSACTION ] [ transaction_mode [, ...] ]
+```
+Where transaction_mode is one of −
+```
+ISOLATION LEVEL {
+SERIALIZABLE | REPEATABLE READ | READ COMMITTED
+| READ UNCOMMITTED
+}
+READ WRITE | READ ONLY
+```
+#### CHECKPOINT
+Force a transaction log checkpoint.
+```
+CHECKPOINT
+```
+#### CLOSE
+Close a cursor.
+```
+CLOSE name
+```
+#### CLUSTER
+Cluster a table according to an index.
+```
+CLUSTER index_name ON table_name
+CLUSTER table_name
+CLUSTER
+```
+#### COMMENT
+Define or change the comment of an object.
+
+```
+COMMENT ON {
+    TABLE object_name |
+    COLUMN table_name.column_name |
+    AGGREGATE agg_name (agg_type) |
+    CAST (source_type AS target_type) |
+    CONSTRAINT constraint_name ON table_name |
+    CONVERSION object_name |
+    DATABASE object_name |
+    DOMAIN object_name |
+    FUNCTION func_name (arg1_type, arg2_type, ...) |
+    INDEX object_name |
+    LARGE OBJECT large_object_oid |
+    OPERATOR op (left_operand_type, right_operand_type) |
+    OPERATOR CLASS object_name USING index_method |
+    [ PROCEDURAL ] LANGUAGE object_name |
+    RULE rule_name ON table_name |
+    SCHEMA object_name |
+    SEQUENCE object_name |
+    TRIGGER trigger_name ON table_name |
+    TYPE object_name |
+    VIEW object_name
+}
+IS 'text'
+```
