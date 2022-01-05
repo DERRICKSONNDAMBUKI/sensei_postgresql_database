@@ -71,4 +71,10 @@ INSERT INTO
   company (id, name, age, address, salary, join_date)
 VALUES
   (5, Leen, 13, Machakos, 85000.0, 2020 -06 -14);
-
+-- insert into into a table
+SELECT * FROM company;
+-- display everything on the table
+SELECT id,name,salary FROM company;
+-- display only id,name and salary from the company table
+SELECT * FROM company WHERE salary=65000;
+-- using WHERE clause and an expression to display record that matches a saslary of 65,000
