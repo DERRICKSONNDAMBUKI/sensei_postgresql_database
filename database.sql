@@ -84,11 +84,23 @@ SELECT * FROM company WHERE age>=19 AND salary >=65000;
 -- where clause is used to specify a condition using expressions
 SELECT * FROM company WHERE name LIKE 'R%';
 -- displays the records that name starts with R
+-- The percent sign represents zero, one, or multiple numbers or characters. The underscore
+-- represents a single number or character.
 SELECT * FROM company WHERE age IN (19,29);
 -- display records that age is either 19 or 29
 SELECT * FROM company WHERE age NOT IN (19,29);
 -- display records that age is neither 19 nor 29
 SELECT * FROM company WHERE  age BETWEEN 12 and 19;
-SELECT age FROM company WHERE EXISTS (SELECT age FROM company WHERE salary>65000)
+SELECT age FROM company WHERE EXISTS (SELECT age FROM company WHERE salary>65000);
 -- sql subquery
 SELECT * FROM company WHERE age >=25 OR salary=65000;
+UPDATE company SET salary = 15000 WHERE id=3;
+-- updates the salary records of id 3
+UPDATE company SET address='Mombasa',salary= 50000;
+-- updates all addresses to Mombasa and all salaries to 50000
+DELETE FROM company WHERE  id = 2;
+-- removes records of id 2
+SELECT * FROM company WHERE age::text LIKE '2%';
+-- display all records that age starts with 2
+SELECT * FROM company WHERE address LIKE '&-&';
+-- display all records that address have hyphen (-) inside text
