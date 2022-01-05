@@ -78,3 +78,17 @@ SELECT id,name,salary FROM company;
 -- display only id,name and salary from the company table
 SELECT * FROM company WHERE salary=65000;
 -- using WHERE clause and an expression to display record that matches a saslary of 65,000
+SELECT CURRENT_TIMESTAMP;
+-- displays current date and time from the system
+SELECT * FROM company WHERE age>=19 AND salary >=65000;
+-- where clause is used to specify a condition using expressions
+SELECT * FROM company WHERE name LIKE 'R%';
+-- displays the records that name starts with R
+SELECT * FROM company WHERE age IN (19,29);
+-- display records that age is either 19 or 29
+SELECT * FROM company WHERE age NOT IN (19,29);
+-- display records that age is neither 19 nor 29
+SELECT * FROM company WHERE  age BETWEEN 12 and 19;
+SELECT age FROM company WHERE EXISTS (SELECT age FROM company WHERE salary>65000)
+-- sql subquery
+SELECT * FROM company WHERE age >=25 OR salary=65000;
