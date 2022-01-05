@@ -262,17 +262,130 @@ SELECT
 FROM
   t;
 --   finds the sum of the salaries less than 20000
-CREATE TABLE company1(
+  CREATE TABLE company1(
+    ID INT PRIMARY KEY NOT NULL,
+    NAME TEXT NOT NULL,
+    AGE INT NOT NULL,
+    ADDRESS CHAR(50),
+    SALARY REAL
+  );
+With moved_rows AS (
+    DELETE FROM
+      company
+    WHERE
+      salary >= 30000 RETURNING *
+  )
+INSERT INTO
+  company1 (
+    SELECT
+      *
+    FROM
+      moved_rows
+  );
+-- moves records from company to company1
+SELECT
+  *
+FROM
+  company;
+SELECT
+  *
+FROM
+  company1;
+SELECT
+  name
+FROM
+  company
+GROUP BY
+  name
+HAVING
+  COUNT(name) < 2;
+-- display records for which name count is less than 2
+  -- The HAVING clause allows us to pick out particular rows where the function's result meets some
+  -- condition.
+INSERT INTO
+  COMPANY (ID, NAME, AGE, ADDRESS, SALARY)
+VALUES
+  (6, 'Loise', 32, 'Malindi', 26000.00);
+INSERT INTO
+  COMPANY (ID, NAME, AGE, ADDRESS, SALARY)
+VALUES
+  (7, 'Allen', 25, 'Kiambu', 15000.00);
+INSERT INTO
+  COMPANY (ID, NAME, AGE, ADDRESS, SALARY)
+VALUES
+  (10, 'Loise', 32, 'Malindi', 26000.00);
+INSERT INTO
+  COMPANY (ID, NAME, AGE, ADDRESS, SALARY)
+VALUES
+  (11, 'Allen', 25, 'Kiambu', 15000.00);
+-- DISTINCT keyword is used in conjunction with SELECT statement to eliminate
+-- all the duplicate records and fetching only unique records.
+CREATE TABLE COMPANY1(
   ID INT PRIMARY KEY NOT NULL,
   NAME TEXT NOT NULL,
   AGE INT NOT NULL,
   ADDRESS CHAR(50),
   SALARY REAL
 );
-With moved_rows AS (
-    DELETE FROM company WHERE salary>=30000 RETURNING *
-)
-INSERT INTO company1 (SELECT * FROM moved_rows);
--- moves records from company to company1
-SELECT * FROM company;
-SELECT * FROM company1;
+-- NOT NULL constaint- ensures that a column cannot have a NULL value
+CREATE TABLE COMPANY3(
+  ID INT PRIMARY KEY NOT NULL,
+  NAME TEXT NOT NULL,
+  AGE INT NOT NULL UNIQUE,
+  ADDRESS CHAR(50),
+  SALARY REAL DEFAULT 50000.00
+);
+-- UNIQUE constraint - Ensures that all values in a comlumn are different.
+CREATE TABLE COMPANY4(
+  ID INT PRIMARY KEY NOT NULL,
+  NAME TEXT NOT NULL,
+  AGE INT NOT NULL,
+  ADDRESS CHAR(50),
+  SALARY REAL
+);
+-- PRIMARY Key − Uniquely identifies each row/record in a database table.
+CREATE TABLE COMPANY6(
+  ID INT PRIMARY KEY NOT NULL,
+  NAME TEXT NOT NULL,
+  AGE INT NOT NULL,
+  ADDRESS CHAR(50),
+  SALARY REAL
+);
+CREATE TABLE DEPARTMENT1(
+    ID INT PRIMARY KEY NOT NULL,
+    DEPT CHAR(50) NOT NULL,
+    EMP_ID INT references COMPANY6(ID)
+  );
+-- FOREIGN Key − Constrains data based on columns in other tables.
+-- The column EMP_ID is the foreign key and references the ID field of
+-- the table COMPANY6.
+CREATE TABLE COMPANY5(
+  ID INT PRIMARY KEY NOT NULL,
+  NAME TEXT NOT NULL,
+  AGE INT NOT NULL,
+  ADDRESS CHAR(50),
+  SALARY REAL CHECK(SALARY > 0)
+);
+-- CHECK Constraint − The CHECK constraint ensures that all values in a column satisfy
+-- certain conditions.
+CREATE TABLE COMPANY7(
+  ID INT PRIMARY KEY NOT NULL,
+  NAME TEXT,
+  AGE INT,
+  ADDRESS CHAR(50),
+  SALARY REAL,
+  EXCLUDE USING gist (NAME WITH =, AGE WITH <>)
+);
+-- EXCLUSION Constraint − The EXCLUDE constraint ensures that if any two rows are
+-- compared on the specified column(s) or expression(s) using the specified operator(s),
+-- not all of these comparisons will return TRUE.
+-- USING gist is the type of index to build and use for enforcement.
+ALTER TABLE table_name DROP  CONSTRAINT some_name;
+-- dropping constraints
+INSERT INTO department (id, dept, emp_id)
+VALUES (1, 'IT Billing', 1 );
+INSERT INTO department (id, dept, emp_id)
+VALUES (2, 'Engineering', 2 );
+INSERT INTO department (id, dept, emp_id)
+VALUES (3, 'Finance', 7 );
+SELECT emp_id,name,dept FROM company CROSS JOIN department
