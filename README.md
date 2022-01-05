@@ -579,3 +579,323 @@ Remove an operator.
 DROP OPERATOR name ( { left_type | NONE }, { right_type | NONE } )
 [ CASCADE | RESTRICT ]
 ```
+#### DROP OPERATOR CLASS
+Remove an operator class.
+```
+DROP OPERATOR CLASS name USING index_method [ CASCADE | RESTRICT ]
+```
+#### DROP RULE
+Remove a rewrite rule.
+```
+DROP RULE name ON relation [ CASCADE | RESTRICT ]
+```
+#### DROP SCHEMA
+Remove a schema.
+```
+DROP SCHEMA name [, ...] [ CASCADE | RESTRICT ]
+```
+#### DROP SEQUENCE
+Remove a sequence.
+```
+DROP SEQUENCE name [, ...] [ CASCADE | RESTRICT ]
+```
+#### DROP TABLE
+Remove a table.
+```
+DROP TABLE name [, ...] [ CASCADE | RESTRICT ]
+```
+#### DROP TABLESPACE
+Remove a tablespace.
+```
+DROP TABLESPACE tablespace_name
+```
+#### DROP TRIGGER
+Remove a trigger.
+```
+DROP TRIGGER name ON table [ CASCADE | RESTRICT ]
+```
+#### DROP TYPE
+Remove a data type.
+```
+DROP TYPE name [, ...] [ CASCADE | RESTRICT ]
+```
+#### DROP USER
+Remove a database user account.
+```
+DROP USER name
+```
+#### DROP VIEW
+Remove a view.
+```
+DROP VIEW name [, ...] [ CASCADE | RESTRICT ]
+```
+#### END
+Commit the current transaction.
+```
+END [ WORK | TRANSACTION ]
+```
+#### EXECUTE
+Execute a prepared statement.
+```
+EXECUTE plan_name [ (parameter [, ...] ) ]
+```
+#### EXPLAIN
+Show the execution plan of a statement.
+```
+EXPLAIN [ ANALYZE ] [ VERBOSE ] statement
+```
+#### FETCH
+Retrieve rows from a query using a cursor.
+```
+FETCH [ direction { FROM | IN } ] cursor_name
+```
+Where direction can be empty or one of −
+```
+NEXT
+PRIOR
+FIRST
+LAST
+ABSOLUTE count
+RELATIVE count
+count
+ALL
+FORWARD
+FORWARD count
+FORWARD ALL
+BACKWARD
+BACKWARD count
+BACKWARD ALL
+```
+#### GRANT
+Define access privileges.
+```
+GRANT { { SELECT | INSERT | UPDATE | DELETE | RULE | REFERENCES | TRIGGER }
+[,...] | ALL [ PRIVILEGES ] }
+ON [ TABLE ] table_name [, ...]
+TO { username | GROUP group_name | PUBLIC } [, ...] [ WITH GRANT OPTION ]
+GRANT { { CREATE | TEMPORARY | TEMP } [,...] | ALL [ PRIVILEGES ] }
+ON DATABASE db_name [, ...]
+TO { username | GROUP group_name | PUBLIC } [, ...] [ WITH GRANT OPTION ]
+GRANT { CREATE | ALL [ PRIVILEGES ] }
+ON TABLESPACE tablespace_name [, ...]
+TO { username | GROUP group_name | PUBLIC } [, ...] [ WITH GRANT OPTION ]
+GRANT { EXECUTE | ALL [ PRIVILEGES ] }
+ON FUNCTION func_name ([type, ...]) [, ...]
+TO { username | GROUP group_name | PUBLIC } [, ...] [ WITH GRANT OPTION ]
+GRANT { USAGE | ALL [ PRIVILEGES ] }
+ON LANGUAGE lang_name [, ...]
+TO { username | GROUP group_name | PUBLIC } [, ...] [ WITH GRANT OPTION ]
+GRANT { { CREATE | USAGE } [,...] | ALL [ PRIVILEGES ] }
+ON SCHEMA schema_name [, ...]
+TO { username | GROUP group_name | PUBLIC } [, ...] [ WITH GRANT OPTION ]
+```
+#### INSERT
+Create new rows in a table.
+```
+INSERT INTO table [ ( column [, ...] ) ]
+{ DEFAULT VALUES | VALUES ( { expression | DEFAULT } [, ...] ) | query }
+```
+#### LISTEN
+Listen for a notification.
+```
+LISTEN name
+LOAD
+Load or reload a shared library file.
+LOAD 'filename'
+LOCK
+Lock a table.
+LOCK [ TABLE ] name [, ...] [ IN lock_mode MODE ] [ NOWAIT ]
+```
+Where lock_mode is one of −
+```
+ACCESS SHARE | ROW SHARE | ROW EXCLUSIVE | SHARE UPDATE EXCLUSIVE
+| SHARE | SHARE ROW EXCLUSIVE | EXCLUSIVE | ACCESS EXCLUSIVE
+```
+#### MOVE
+Position a cursor.
+```
+MOVE [ direction { FROM | IN } ] cursor_name
+```
+#### NOTIFY
+Generate a notification.
+```
+NOTIFY name
+```
+#### PREPARE
+Prepare a statement for execution.
+```
+PREPARE plan_name [ (data_type [, ...] ) ] AS statement
+```
+#### REINDEX
+Rebuild indexes.
+```
+REINDEX { DATABASE | TABLE | INDEX } name [ FORCE ]
+```
+#### RELEASE SAVEPOINT
+Destroy a previously defined savepoint.
+```
+RELEASE [ SAVEPOINT ] savepoint_name
+```
+#### RESET
+Restore the value of a runtime parameter to the default value.
+```
+RESET name
+RESET ALL
+```
+#### REVOKE
+Remove access privileges.
+```
+REVOKE [ GRANT OPTION FOR ]
+{ { SELECT | INSERT | UPDATE | DELETE | RULE | REFERENCES | TRIGGER }
+[,...] | ALL [ PRIVILEGES ] }
+ON [ TABLE ] table_name [, ...]
+FROM { username | GROUP group_name | PUBLIC } [, ...]
+[ CASCADE | RESTRICT ]
+REVOKE [ GRANT OPTION FOR ]
+{ { CREATE | TEMPORARY | TEMP } [,...] | ALL [ PRIVILEGES ] }
+ON DATABASE db_name [, ...]
+FROM { username | GROUP group_name | PUBLIC } [, ...]
+[ CASCADE | RESTRICT ]
+REVOKE [ GRANT OPTION FOR ]
+{ CREATE | ALL [ PRIVILEGES ] }
+ON TABLESPACE tablespace_name [, ...]
+FROM { username | GROUP group_name | PUBLIC } [, ...]
+[ CASCADE | RESTRICT ]
+REVOKE [ GRANT OPTION FOR ]
+{ EXECUTE | ALL [ PRIVILEGES ] }
+ON FUNCTION func_name ([type, ...]) [, ...]
+FROM { username | GROUP group_name | PUBLIC } [, ...]
+[ CASCADE | RESTRICT ]
+REVOKE [ GRANT OPTION FOR ]
+{ USAGE | ALL [ PRIVILEGES ] }
+ON LANGUAGE lang_name [, ...]
+FROM { username | GROUP group_name | PUBLIC } [, ...]
+[ CASCADE | RESTRICT ]
+REVOKE [ GRANT OPTION FOR ]
+{ { CREATE | USAGE } [,...] | ALL [ PRIVILEGES ] }
+ON SCHEMA schema_name [, ...]
+FROM { username | GROUP group_name | PUBLIC } [, ...]
+[ CASCADE | RESTRICT ]
+```
+#### ROLLBACK
+Abort the current transaction.
+```
+ROLLBACK [ WORK | TRANSACTION ]
+ROLLBACK TO SAVEPOINT
+Roll back to a savepoint.
+ROLLBACK [ WORK | TRANSACTION ] TO [ SAVEPOINT ] savepoint_name
+```
+#### SAVEPOINT
+Define a new savepoint within the current transaction.
+```
+SAVEPOINT savepoint_name
+```
+#### SELECT
+Retrieve rows from a table or view.
+```
+SELECT [ ALL | DISTINCT [ ON ( expression [, ...] ) ] ]
+* | expression [ AS output_name ] [, ...]
+[ FROM from_item [, ...] ]
+[ WHERE condition ]
+[ GROUP BY expression [, ...] ]
+[ HAVING condition [, ...] ]
+[ { UNION | INTERSECT | EXCEPT } [ ALL ] select ]
+[ ORDER BY expression [ ASC | DESC | USING operator ] [, ...] ]
+[ LIMIT { count | ALL } ]
+[ OFFSET start ]
+[ FOR UPDATE [ OF table_name [, ...] ] ]
+Where from_item can be one of:
+[ ONLY ] table_name [ * ] [ [ AS ] alias [ ( column_alias [, ...] ) ] ]
+( select ) [ AS ] alias [ ( column_alias [, ...] ) ]
+function_name ( [ argument [, ...] ] )
+[ AS ] alias [ ( column_alias [, ...] | column_definition [, ...] ) ]
+function_name ( [ argument [, ...] ] ) AS ( column_definition [, ...] )
+from_item [ NATURAL ] join_type from_item
+[ ON join_condition | USING ( join_column [, ...] ) ]
+```
+#### SELECT INTO
+Define a new table from the results of a query.
+```
+SELECT [ ALL | DISTINCT [ ON ( expression [, ...] ) ] ]
+* | expression [ AS output_name ] [, ...]
+INTO [ TEMPORARY | TEMP ] [ TABLE ] new_table
+[ FROM from_item [, ...] ]
+[ WHERE condition ]
+[ GROUP BY expression [, ...] ]
+[ HAVING condition [, ...] ]
+[ { UNION | INTERSECT | EXCEPT } [ ALL ] select ]
+[ ORDER BY expression [ ASC | DESC | USING operator ] [, ...] ]
+[ LIMIT { count | ALL } ]
+[ OFFSET start ]
+[ FOR UPDATE [ OF table_name [, ...] ] ]
+```
+#### SET
+Change a runtime parameter.
+```
+SET [ SESSION | LOCAL ] name { TO | = } { value | 'value' | DEFAULT }
+SET [ SESSION | LOCAL ] TIME ZONE { time_zone | LOCAL | DEFAULT }
+```
+#### SET CONSTRAINTS
+Set constraint checking modes for the current transaction.
+```
+SET CONSTRAINTS { ALL | name [, ...] } { DEFERRED | IMMEDIATE }
+```
+#### SET SESSION AUTHORIZATION
+Set the session user identifier and the current user identifier of the current session.
+```
+SET [ SESSION | LOCAL ] SESSION AUTHORIZATION username
+SET [ SESSION | LOCAL ] SESSION AUTHORIZATION DEFAULT
+RESET SESSION AUTHORIZATION
+```
+#### SET TRANSACTION
+Set the characteristics of the current transaction.
+```
+SET TRANSACTION transaction_mode [, ...]
+SET SESSION CHARACTERISTICS AS TRANSACTION transaction_mode [, ...]
+```
+Where transaction_mode is one of −
+```
+ISOLATION LEVEL { SERIALIZABLE | REPEATABLE READ | READ COMMITTED
+| READ UNCOMMITTED }
+READ WRITE | READ ONLY
+```
+#### SHOW
+Show the value of a runtime parameter.
+```
+SHOW name
+SHOW ALL
+```
+#### START TRANSACTION
+Start a transaction block.
+```
+START TRANSACTION [ transaction_mode [, ...] ]
+```
+Where transaction_mode is one of −
+```
+ISOLATION LEVEL { SERIALIZABLE | REPEATABLE READ | READ COMMITTED
+| READ UNCOMMITTED }
+READ WRITE | READ ONLY
+```
+#### TRUNCATE
+Empty a table.
+```
+TRUNCATE [ TABLE ] name
+```
+#### UNLISTEN
+Stop listening for a notification.
+```
+UNLISTEN { name | * }
+```
+#### UPDATE
+Update rows of a table.
+```
+UPDATE [ ONLY ] table SET column = { expression | DEFAULT } [, ...]
+[ FROM from_list ]
+[ WHERE condition ]
+```
+#### VACUUM
+Garbage-collect and optionally analyze a database.
+```
+VACUUM [ FULL ] [ FREEZE ] [ VERBOSE ] [ table ]
+VACUUM [ FULL ] [ FREEZE ] [ VERBOSE ] ANALYZE [ table [ (column [, ...] ) ]
+```
