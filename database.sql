@@ -578,10 +578,42 @@ INSERT INTO
 VALUES
   ('James', 24, 'Houston', 10000.00);
 -- auto-increment with SERIAL
-CREATE USER ricky WITH PASSWORD 'my_password';
+  CREATE USER ricky WITH PASSWORD 'my_password';
 -- created a user and password
-GRANT ALL PRIVILEGES ON company TO ricky;
-REVOKE ALL ON company FROM ricky;
+  GRANT ALL PRIVILEGES ON company TO ricky;
+REVOKE ALL ON company
+FROM
+  ricky;
 DROP USER ricky;
-SELECT age(timestamp '2001-04-10',timestamp '1957-06-13')
-SELECT age(timwstamp '1957-06-13')
+SELECT
+  age(timestamp '2001-04-10', timestamp '1957-06-13')
+SELECT
+  age(timwstamp '1957-06-13')
+SELECT
+  CURRENT_TIME;
+-- returns current time;
+SELECT
+  CURRENT_DATE();
+SELECT
+  LOCALTIMESTAMP;
+SELECT
+  date_part('day', TIMESTAMP '2001-02-16 20:38:40');
+SELECT
+  date_trunc('hour', TIMESTAMP '2001-02-16 20:38:40');
+-- time
+SELECT
+  EXTRACT(
+    CENTURY
+    FROM
+      TIMESTAMP '2000-12-16 12:21:13'
+  );
+SELECT
+  justify_hours(interval '27 hours');
+CREATE
+  OR REPLACE FUNCTION totalRecords () RETURNS INTEGER AS $ total $ declare total INTEGER;
+BEGIN
+SELECT
+  COUNT(*) INTO total FROMcompany;
+RETURN total;
+END;
+% total $ LANGUAGE plpgsql;
