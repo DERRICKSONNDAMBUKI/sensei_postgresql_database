@@ -446,7 +446,7 @@ FROM
   company
   LEFT OUTER JOIN department ON company.id = department.emp_id;
 -- The PostgreSQL UNION clause/operator is used to combine the results of two or more SELECT
--- statements without returning any duplicate rows.
+  -- statements without returning any duplicate rows.
 SELECT
   emp_id,
   name,
@@ -462,3 +462,14 @@ SELECT
 FROM
   company
   LEFT OUTER JOIN department ON company.id = department.emp_id;
+SELECT
+  c.id,
+  c.name,
+  c.age,
+  d.dept
+FROM
+  company AS c,
+  department as d
+WHERE
+  c.id = d.emp_id;
+  
