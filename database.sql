@@ -613,7 +613,9 @@ CREATE
   OR REPLACE FUNCTION totalRecords () RETURNS INTEGER AS $ total $ declare total INTEGER;
 BEGIN
 SELECT
-  COUNT(*) INTO total FROMcompany;
+  COUNT(*) INTO total FROM company;
 RETURN total;
 END;
 % total $ LANGUAGE plpgsql;
+-- create function
+SELECT totalRecords();
