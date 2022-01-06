@@ -490,3 +490,12 @@ SELECT  * FROM company_view;
 DROP VIEW  company_view;
 -- A view can represent a subset of a real table, selecting certain columns or
 -- certain rows from an ordinary table. A view can even represent joined tables.
+BEGIN;
+DELETE FROM company WHERE age = 25;
+ROLLBACK;
+-- The ROLLBACK command is the transactional command used to undo transactions that have
+-- not already been saved to the database.
+BEGIN;
+DELETE FROM company WHERE age = 25;
+COMMIT;
+-- commit is used to commit all changes
