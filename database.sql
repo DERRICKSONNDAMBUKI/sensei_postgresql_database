@@ -472,30 +472,116 @@ FROM
   department AS d
 WHERE
   c.id = d.emp_id;
-UPDATE company SET address = NULL ,salary = NULL WHERE id IN (6,7);
-SELECT * FROM pg_trigger;
+UPDATE
+  company
+SET
+  address = NULL,
+  salary = NULL
+WHERE
+  id IN (6, 7);
+SELECT
+  *
+FROM
+  pg_trigger;
 -- listing triggers
--- PostgreSQL Triggers are database callback functions,
--- performed/invoked when a specified database event occurs.
-ALTER TABLE company ADD gender CHAR(1);
+  -- PostgreSQL Triggers are database callback functions,
+  -- performed/invoked when a specified database event occurs.
+ALTER TABLE
+  company
+ADD
+  gender CHAR(1);
 -- add a column gender to company table
-ALTER TABLE  company DROP gender;
+ALTER TABLE
+  company DROP gender;
 -- The PostgreSQL ALTER TABLE command is used to add, delete or modify columns in an
--- existing table.
-TRUNCATE TABLE company;
+  -- existing table.
+  TRUNCATE TABLE company;
 -- The PostgreSQL TRUNCATE TABLE command is used to delete complete data from an
--- existing table.
-CREATE VIEW  company_view as SELECT id,name,age FROM  company;
-SELECT  * FROM company_view;
-DROP VIEW  company_view;
+  -- existing table.
+  CREATE VIEW company_view as
+SELECT
+  id,
+  name,
+  age
+FROM
+  company;
+SELECT
+  *
+FROM
+  company_view;
+DROP VIEW company_view;
 -- A view can represent a subset of a real table, selecting certain columns or
--- certain rows from an ordinary table. A view can even represent joined tables.
-BEGIN;
-DELETE FROM company WHERE age = 25;
+  -- certain rows from an ordinary table. A view can even represent joined tables.
+  BEGIN;
+DELETE FROM
+  company
+WHERE
+  age = 25;
 ROLLBACK;
 -- The ROLLBACK command is the transactional command used to undo transactions that have
--- not already been saved to the database.
-BEGIN;
-DELETE FROM company WHERE age = 25;
+  -- not already been saved to the database.
+  BEGIN;
+DELETE FROM
+  company
+WHERE
+  age = 25;
 COMMIT;
 -- commit is used to commit all changes
+UPDATE
+  company
+SET
+  salary = salary * 0.50
+WHERE
+  age IN (
+    SELECT
+      age
+    FROM
+      company1
+    WHERE
+      age >= 27
+  );
+-- A subquery or Inner query or Nested query is a query within another PostgreSQL query and
+  -- embedded within the WHERE clause
+  CREATE TABLE company2(
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    age INT NOT NULL,
+    address CHAR(50),
+    salary REAL
+  );
+INSERT INTO
+  COMPANY (NAME, AGE, ADDRESS, SALARY)
+VALUES
+  ('Paul', 32, 'California', 20000.00);
+INSERT INTO
+  COMPANY (NAME, AGE, ADDRESS, SALARY)
+VALUES
+  ('Allen', 25, 'Texas', 15000.00);
+INSERT INTO
+  COMPANY (NAME, AGE, ADDRESS, SALARY)
+VALUES
+  ('Teddy', 23, 'Norway', 20000.00);
+INSERT INTO
+  COMPANY (NAME, AGE, ADDRESS, SALARY)
+VALUES
+  ('Mark', 25, 'Rich-Mond ', 65000.00);
+INSERT INTO
+  COMPANY (NAME, AGE, ADDRESS, SALARY)
+VALUES
+  ('David', 27, 'Texas', 85000.00);
+INSERT INTO
+  COMPANY (NAME, AGE, ADDRESS, SALARY)
+VALUES
+  ('Kim', 22, 'South-Hall', 45000.00);
+INSERT INTO
+  COMPANY (NAME, AGE, ADDRESS, SALARY)
+VALUES
+  ('James', 24, 'Houston', 10000.00);
+-- auto-increment with SERIAL
+CREATE USER ricky WITH PASSWORD 'my_password';
+-- created a user and password
+GRANT ALL PRIVILEGES ON company TO ricky;
+REVOKE ALL ON company FROM ricky;
+DROP USER ricky;
+SELECT age(timestamp '2001-04-10',timestamp '1957-06-13')
+SELECT age(timwstamp '1957-06-13')
