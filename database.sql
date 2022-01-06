@@ -469,7 +469,24 @@ SELECT
   d.dept
 FROM
   company AS c,
-  department as d
+  department AS d
 WHERE
   c.id = d.emp_id;
-  
+UPDATE company SET address = NULL ,salary = NULL WHERE id IN (6,7);
+SELECT * FROM pg_trigger;
+-- listing triggers
+-- PostgreSQL Triggers are database callback functions,
+-- performed/invoked when a specified database event occurs.
+ALTER TABLE company ADD gender CHAR(1);
+-- add a column gender to company table
+ALTER TABLE  company DROP gender;
+-- The PostgreSQL ALTER TABLE command is used to add, delete or modify columns in an
+-- existing table.
+TRUNCATE TABLE company;
+-- The PostgreSQL TRUNCATE TABLE command is used to delete complete data from an
+-- existing table.
+CREATE VIEW  company_view as SELECT id,name,age FROM  company;
+SELECT  * FROM company_view;
+DROP VIEW  company_view;
+-- A view can represent a subset of a real table, selecting certain columns or
+-- certain rows from an ordinary table. A view can even represent joined tables.
